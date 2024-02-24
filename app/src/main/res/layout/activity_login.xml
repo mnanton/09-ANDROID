@@ -1,8 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/back01a"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ui.login.LoginActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"  >
+        <TextView
+            android:id="@+id/txtUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="USUARIO" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/etxtUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:textColorHint="#FFA500"
+            android:textColor="#FFA500"
+            android:hint="Introduce un usuario"
+            android:inputType="textEmailAddress"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+
+        <TextView
+            android:id="@+id/txtPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="CONTRASEÑA" />
+
+        <EditText
+            android:id="@+id/etxtPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textColorHint="#FFA500"
+            android:textColor="#FFA500"
+            android:hint="Introduce la contraseña"
+            android:inputType="textPassword"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VALIDAR DATOS"/>
+
+        <ProgressBar
+            android:id="@+id/pBarLogin"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:progressTint="#ff942a"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>
