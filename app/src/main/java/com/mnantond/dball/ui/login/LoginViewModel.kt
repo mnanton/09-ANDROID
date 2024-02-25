@@ -26,6 +26,7 @@ class LoginViewModel:ViewModel() {
         class OnError(val errorInfo: String) : State()
     }
     fun launchLogin(userLogin: String, userPassword: String){
+        // TODO VERIFICAR REQUISITOS USUARIO Y CONTRASEÑA
         viewModelScope.launch(Dispatchers.IO){
             _uiState.value = State.Loading(true)
             Log.i("APIdb",  "START apiLogin")
@@ -51,6 +52,7 @@ class LoginViewModel:ViewModel() {
             Log.i("APIdb",  "Response is Succesfully")
             response.body?.let {
                 ResourcesAPI.api_token = (it.string())
+                // TODO GUARDAR EN SHARED PREFERENCES
                 _uiState.value = State.SuccessLogin()
             } ?: "No Token"
         } else {

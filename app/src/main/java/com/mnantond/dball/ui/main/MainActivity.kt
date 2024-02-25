@@ -9,6 +9,7 @@ import com.mnantond.dball.databinding.ActivityMainBinding
 class MainActivity: AppCompatActivity()  {
 
     private lateinit var binding: ActivityMainBinding
+    val viewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
