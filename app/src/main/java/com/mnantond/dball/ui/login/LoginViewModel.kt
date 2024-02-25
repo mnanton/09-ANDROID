@@ -22,7 +22,7 @@ class LoginViewModel:ViewModel() {
     sealed class State {
         class Idle : State()
         class Loading(val show: Boolean) : State()
-        class SuccessLogin(val message: String) : State()
+        class SuccessLogin() : State()
         class OnError(val errorInfo: String) : State()
     }
     fun launchLogin(userLogin: String, userPassword: String){
@@ -51,11 +51,12 @@ class LoginViewModel:ViewModel() {
             Log.i("APIdb",  "Response is Succesfully")
             response.body?.let {
                 ResourcesAPI.api_token = (it.string())
-                Log.i("APIdb",  "Token Value= ${ResourcesAPI.api_token.toString()}")
+                _uiState.value = State.SuccessLogin()
             } ?: "No Token"
         } else {
-            Log.i("APIdb",  "Response is Error")
             ResourcesAPI.api_token = ""
+            _uiState.value = State.OnError(response.message)
+            Log.i("APIdb",  "Response is Error: ${response.message}")
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.mnantond.dball.ui.login
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -8,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.mnantond.dball.R
 import com.mnantond.dball.databinding.ActivityLoginBinding
+import com.mnantond.dball.ui.main.MainActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -20,8 +23,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setListener()
         setObservers()
+        setListener()
     }
 
     fun setListener(){
@@ -29,13 +32,15 @@ class LoginActivity : AppCompatActivity() {
     }
     fun setObservers(){
         lifecycleScope.launch {
+            Log.i("setObserver",  "Start setObserver")
             viewModel.uiState.collect {
                 when(it){
                     is LoginViewModel.State.Idle-> idle()
                     is LoginViewModel.State.Loading-> showLoading(true)
                     is LoginViewModel.State.SuccessLogin->{
+                        Log.i("setObserver",  "State SuccessLogin")
                         showLoading(false)
-                        showDetail()
+                        goMainActivity()
                     }
                     is LoginViewModel.State.OnError->showLoading(false)
                 }
@@ -54,7 +59,9 @@ class LoginActivity : AppCompatActivity() {
             View.GONE
     }
 
-    fun showDetail() {
-        Toast.makeText(this, "Login Exitoso", Toast.LENGTH_LONG).show()
+    fun goMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        //finish()
     }
 }
