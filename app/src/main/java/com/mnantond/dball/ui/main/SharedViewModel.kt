@@ -15,7 +15,7 @@ import okhttp3.Request
 
 class SharedViewModel: ViewModel() {
 
-    private var heroList = mutableListOf<Hero>()
+    private var heroList = mutableListOf<HeroDto>()
 
     fun getHeroes(token: String) {
         Log.i("SharedViewModel", "START getHeroes")
@@ -36,12 +36,9 @@ class SharedViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     Log.i("SharedViewModel", "Response is Correct")
                     try {
-                        heroList.addAll(
-                            Gson().fromJson(
-                                response.body?.toString(),
-                                Array<Hero>::class.java
-                            )
-                        )
+                        //val jsonResponse = response.body?.string()
+                        //heroList = Gson().fromJson(jsonResponse, Array<HeroDto>::class.java).toMutableList()
+                        heroList = Gson().fromJson(response.body?.string(),Array<HeroDto>::class.java).toMutableList()
                         Log.i("SharedViewModel", "Hero List: ${heroList}")
                     } catch (ex: Exception) {
                         Log.i("SharedViewModel", "Excepcion GSON: ${ex.message.toString()}")
