@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.mnantond.dball.R
 import com.mnantond.dball.data.ResourcesAPI
@@ -13,7 +14,7 @@ import com.mnantond.dball.databinding.FragmentListBinding
 import com.mnantond.dball.ui.main.SharedViewModel
 
 class ListFragment : Fragment() {
-    val sharedViewModel: SharedViewModel by viewModels()
+    val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentListBinding
 
     override fun onCreateView(

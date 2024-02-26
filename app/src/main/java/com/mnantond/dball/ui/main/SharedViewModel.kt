@@ -15,12 +15,13 @@ import okhttp3.Request
 
 class SharedViewModel: ViewModel() {
 
-    private var heroList = mutableListOf<HeroDto>()
+    var heroList = mutableListOf<Hero>()
+    private var heroListDto = mutableListOf<HeroDto>()
 
     fun getHeroes(token: String) {
         Log.i("SharedViewModel", "START getHeroes")
         viewModelScope.launch(Dispatchers.IO) {
-            if (heroList.isEmpty()) {
+            if (heroListDto.isEmpty()) {
                 val client = OkHttpClient()
                 val url = "${ResourcesAPI.base_Url}${ResourcesAPI.base_HEroes}"
                 val formBody = FormBody.Builder()
@@ -38,14 +39,18 @@ class SharedViewModel: ViewModel() {
                     try {
                         //val jsonResponse = response.body?.string()
                         //heroList = Gson().fromJson(jsonResponse, Array<HeroDto>::class.java).toMutableList()
-                        heroList = Gson().fromJson(response.body?.string(),Array<HeroDto>::class.java).toMutableList()
-                        Log.i("SharedViewModel", "Hero List: ${heroList}")
+                        heroListDto = Gson().fromJson(response.body?.string(),Array<HeroDto>::class.java).toMutableList()
+                        heroList = heroListDto.map {
+                            Hero(it.id, it.photo, it.name)
+                        }.toMutableList()
+                        Log.i("SharedViewModel", "HeroListDto Values: ${heroListDto}")
+                        Log.i("SharedViewModel", "HeroList Values: ${heroList}")
                     } catch (ex: Exception) {
-                        Log.i("SharedViewModel", "Excepcion GSON: ${ex.message.toString()}")
+                        Log.i("SharedViewModel", "Exception GSON: ${ex.message.toString()}")
                     //   _stateHeroes.value = StateHeroes.Error(ex.message.toString())
                     }
                 } else {
-                    Log.i("SharedViewModel", "Error: ${response.message}")
+                    Log.i("SharedViewModel", "Response is wrong, Error description: ${response.message}")
                     //_stateHeroes.value = StateHeroes.Error(response.message)
                 }
             }
