@@ -12,16 +12,18 @@ import com.mnantond.dball.R
 import com.mnantond.dball.data.ResourcesAPI
 import com.mnantond.dball.databinding.FragmentListBinding
 import com.mnantond.dball.ui.main.SharedViewModel
+import kotlinx.coroutines.flow.callbackFlow
 
 class ListFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentListBinding
+    private val adapter = HeroesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-    binding = FragmentListBinding.inflate(inflater)
+        binding = FragmentListBinding.inflate(inflater)
         return binding.root
     }
 
