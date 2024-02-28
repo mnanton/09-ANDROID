@@ -1,22 +1,23 @@
 package com.mnantond.dball.ui.main.list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.mnantond.dball.R
-import com.mnantond.dball.data.ResourcesAPI
+import androidx.lifecycle.lifecycleScope
 import com.mnantond.dball.databinding.FragmentListBinding
+import com.mnantond.dball.ui.login.LoginViewModel
 import com.mnantond.dball.ui.main.SharedViewModel
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
-    val sharedViewModel: SharedViewModel by activityViewModels()
+
     private lateinit var binding: FragmentListBinding
+    val sharedViewModel: SharedViewModel by activityViewModels()
+
     private val adapter = HeroesAdapter()
 
     override fun onCreateView(
@@ -29,6 +30,21 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedViewModel.getHeroes(ResourcesAPI.api_token)
+    //TODO Acciones con las Vistas
+    }
+
+    fun setObservers(){
+        lifecycleScope.launch {
+            Log.i("ListFragment",  "Start setObserver")
+            sharedViewModel.uiStateList.collect {
+                when(it){
+                    is SharedViewModel.StateList.Idle-> TODO()
+                    is SharedViewModel.StateList.Loading-> TODO()
+                    is SharedViewModel.StateList.HeroIsSelected-> TODO()
+                    is SharedViewModel.StateList.HeroIsUpdated-> TODO()
+                    is SharedViewModel.StateList.Error-> TODO()
+                }
+            }
+        }
     }
 }

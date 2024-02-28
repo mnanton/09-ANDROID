@@ -53,4 +53,7 @@ dependencies {
     // Implementación API REST
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+
+    // Implementación Glide (Fotos)
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 }
